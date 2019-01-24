@@ -1,0 +1,49 @@
+---
+
+title: "All Sites Isotope"
+author: "Alex Wood"
+date: "January 24, 2019"
+output: html_document
+
+---
+
+
+```{r}
+#load programs
+library(tidyverse)
+library(ggplot2)
+
+```
+
+#bring in isotope data for this project and ALL isotopes data
+```{r}
+#bring in R and C aquifer data
+R_and_C_aquifer <- read_csv("R and C aquifer.csv", 
+    col_types = cols(Date = col_date(format = "%m/%d/%Y")))
+
+#R and C aquifer isotopes in addition to past sinkhole and meteoric data
+rcAquifer=as.data.frame(R_and_C_aquifer)
+
+
+#now bring in just the C aquifer data-just from my project
+justIsotopes <- read_csv("justIsotopes.csv", 
+    col_types = cols(Date = col_date(format = "%m/%d/%Y")))
+justIsotopes
+
+#this is my project's isotope data
+justIsotopes=as.data.frame(justIsotopes)
+
+```
+
+
+#facet
+```{r}
+ggplot(justIsotopes)+geom_point(aes(x=justIsotopes$Discharge, y=justIsotopes$D_EX, color=Season, fill=season))+scale_x_log10()+ylim(20,5)
+
+
+ggplot(justIsotopes)+geom_point(aes(x=justIsotopes$Discharge, y=justIsotopes$O18, color=Season))+scale_x_log10()+ylim(-12,-15)
+
+```
+
+
+
